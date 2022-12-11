@@ -1831,11 +1831,6 @@ nanoid@^3.3.4:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
   integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
 
-nanoid@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-4.0.0.tgz#6e144dee117609232c3f415c34b0e550e64999a5"
-  integrity sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==
-
 node-releases@^2.0.3:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.5.tgz#280ed5bc3eba0d96ce44897d8aee478bfb3d9666"
@@ -2152,13 +2147,13 @@ tn-react-hooks@^1.5.3:
     tn-typescript "^1.2.3"
     tn-uniqid "^1.0.1"
 
-tn-reactive@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/tn-reactive/-/tn-reactive-5.0.1.tgz#eb95944c83c8fd8c55d6f8464b9226e9eecb4775"
-  integrity sha512-XgDzlXkm8LGWZeifCXQAvpLym4jd2TPi7iZ54QGjG6JZcIruyKJld3jCi1MAH+bLmpDbw44164ko2TXUgCiG6g==
+tn-reactive@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/tn-reactive/-/tn-reactive-5.0.2.tgz#fb0a381d45acd52578a8833b78d50cb9256b81b4"
+  integrity sha512-HASamZaiEnvdz+dTVQbkCiyQIZCdovckw/9ORChp8M8xRhnRcZCI8IuDtjwVi9hKTbQ5V43Hc2/i+5uGBdGegQ==
   dependencies:
     "@babel/runtime" "^7.20.6"
-    nanoid "^4.0.0"
+    nanoid "^3.3.4"
     tn-react-hooks "^1.5.3"
     tn-validate "^3.1.5"
 
