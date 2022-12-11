@@ -3,7 +3,7 @@ import { StoreOptions, StoreOptobj } from './StoreOptions';
 import { StoreSuperSuper } from './StoreSuperSuper';
 import { StoreValidator } from './StoreValidator';
 import { VUnion, Question } from './Typings';
-declare type Connect<T> = ($onChange: Func, $path: string[], savedval?: T) => void;
+type Connect<T> = ($onChange: Func, $path: string[], savedval?: T) => void;
 export declare class StoreSuper<T> extends StoreSuperSuper<T> {
     protected $store: boolean;
     protected $onChange: Func;

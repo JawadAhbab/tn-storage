@@ -1,6 +1,6 @@
 import { AnyObject } from 'tn-typescript';
-declare type SetCallback = () => void;
-declare type GetCallback = (saveobj: AnyObject) => void;
+type SetCallback = () => void;
+type GetCallback = (saveobj: AnyObject) => void;
 export declare class NativeStorage {
     private scope;
     async: boolean;

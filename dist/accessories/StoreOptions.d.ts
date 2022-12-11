@@ -1,4 +1,4 @@
-declare type StoreOptfunc<T> = (value: T) => T;
+type StoreOptfunc<T> = (value: T) => T;
 export interface StoreOptobj<T> {
     deepcheck?: boolean;
     onSet?: (value: T) => void;
