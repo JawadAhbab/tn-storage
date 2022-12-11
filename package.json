@@ -1,0 +1,47 @@
+{
+  "name": "tn-storage",
+  "version": "6.0.1",
+  "description": " ",
+  "keywords": [],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "Serve": "parcel .dev/parcel/index.html --dist-dir .dev/parcel/dist --cache-dir .dev/parcel/cache --open",
+    "Build": "rimraf dist && rollup -c",
+    "Publish": "rimraf .dev/parcel/dist & rimraf .dev/parcel/cache && npm run Build && yarn publish"
+  },
+  "author": "Turnova",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/runtime": "^7.20.0",
+    "electron-store": "^8.1.0",
+    "fast-deep-equal": "^3.1.3",
+    "tn-arrelm": "^2.0.0",
+    "tn-reactive": "^4.1.1",
+    "tn-timeout": "^1.0.0",
+    "tn-typescript": "^1.2.3",
+    "tn-validate": "^3.1.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@react-native-async-storage/async-storage": "^1.17.10",
+    "@rollup/plugin-babel": "^6.0.2",
+    "@types/node": "^18.11.7",
+    "process": "^0.11.10",
+    "react": "^18.2.0",
+    "rollup": "^3.2.3",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "typescript": "^4.8.4"
+  },
+  "alias": {
+    "process": {
+      "global": "{}"
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}

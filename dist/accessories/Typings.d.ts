@@ -1,0 +1,15 @@
+import { ElectronStorage } from '../Storages/ElectronStorage';
+import { LocalStorage } from '../Storages/LocalStorage';
+import { MemoryStorage } from '../Storages/MemoryStorage';
+import { NativeStorage } from '../Storages/NativeStorage';
+import { SessionStorage } from '../Storages/SessionStorage';
+import { Store } from '../Stores/Store';
+import { StoreReactive } from '../Stores/StoreReactive';
+export declare type Stores = Store | StoreReactive;
+export declare type Storages = LocalStorage | SessionStorage | MemoryStorage | ElectronStorage | NativeStorage;
+declare type Boolee = boolean | number | string | undefined | null;
+export declare type VFunc<T> = (value: T) => Boolee;
+export declare type VUnion = readonly (string | number | boolean)[];
+export declare type Question<T> = VType | VFunc<T> | VUnion | null;
+export declare type VType = 'any' | 'string' | 'number' | 'boolean' | 'array' | 'object' | 'string[]' | 'number[]' | 'boolean[]';
+export {};
