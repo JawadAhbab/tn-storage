@@ -1,6 +1,6 @@
 type OnStart<T> = (value: T) => T;
-type Getter<T> = <G = any>(value: G) => T;
-type Setter<T> = <S = any>(value: T) => S;
+type Getter<T> = (value: any) => T;
+type Setter<T> = (value: T) => any;
 export interface StoreOptobj<T> {
     deepcheck?: boolean;
     onSet?: (value: T) => void;
