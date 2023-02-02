@@ -6,7 +6,7 @@ const $states = new CreateStorage(new LocalStorage('myscope'), {
     name: new Store('turna', 'string'),
     jobs: new Store(['marketing'], 'string[]'),
   },
-}).getStates()
+}).states
 ```
 
 ## Storages
