@@ -15,7 +15,7 @@ export declare class StoreSuper<T> extends StoreSuperSuper<T> {
     constructor(defaults: T | (() => T), ques?: Question<T>, options?: StoreOptobj<T>);
     protected $connect: Connect<T>;
     protected easyset: (value: any) => T;
-    protected execset(value: T, silent: boolean | undefined, setValue: (value: T) => void): T;
+    protected execset(value: T, silent: boolean | undefined, setValue: (value: T) => void): any;
     reset(): T;
     increase(amount?: number): T;
     decrease(amount?: number): T;
