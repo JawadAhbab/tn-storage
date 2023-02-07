@@ -2239,7 +2239,7 @@ tn-react-hooks@^1.5.3:
     tn-typescript "^1.2.3"
     tn-uniqid "^1.0.1"
 
-tn-reactive@^6.1.0:
+tn-reactive@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/tn-reactive/-/tn-reactive-6.1.1.tgz#0c698ddf494414c6fe3f1c1092f12d485179b44d"
   integrity sha512-vqVczd2F/EC2KeOs65X97J79rq2CTUAHF72vzzmIEoTa3TQ/+sjXZMX7L15dYRMUoBYGeCg/NvfCOAEP0XnXyQ==
