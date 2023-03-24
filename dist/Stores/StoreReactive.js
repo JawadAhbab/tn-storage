@@ -34,15 +34,9 @@ var StoreOptions = /*#__PURE__*/_createClass(function StoreOptions(options) {
     setter = options.setter;
   this.deepcheck = deepcheck;
   if (onSet) this.onSet = onSet;
-  if (onStart !== undefined) this.onStart = tnValidate.isFunction(onStart) ? onStart : function () {
-    return onStart;
-  };
-  if (getter !== undefined) this.getter = tnValidate.isFunction(getter) ? getter : function () {
-    return getter;
-  };
-  if (setter !== undefined) this.setter = tnValidate.isFunction(setter) ? setter : function () {
-    return setter;
-  };
+  if (onStart) this.onStart = onStart;
+  if (getter) this.getter = getter;
+  if (setter) this.setter = setter;
 }); // just a typescript hack
 // it actually referes to Store & StoreReactive Classes
 var StoreSuperSuper = /*#__PURE__*/function () {
