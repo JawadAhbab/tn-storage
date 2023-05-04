@@ -197,9 +197,7 @@ var StoreSuper = /*#__PURE__*/function (_StoreSuperSuper) {
       var value = this.get();
       if (!tnValidate.isArray(value)) return value;
       var newval = _toConsumableArray(value);
-      for (var i = 0; i < howmany; i++) {
-        newval.shift();
-      }
+      for (var i = 0; i < howmany; i++) newval.shift();
       return this.easyset(newval);
     }
   }, {
@@ -209,9 +207,7 @@ var StoreSuper = /*#__PURE__*/function (_StoreSuperSuper) {
       var value = this.get();
       if (!tnValidate.isArray(value)) return value;
       var newval = _toConsumableArray(value);
-      for (var i = 0; i < howmany; i++) {
-        newval.pop();
-      }
+      for (var i = 0; i < howmany; i++) newval.pop();
       return this.easyset(newval);
     }
   }, {
