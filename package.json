@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "Serve": "parcel .dev/parcel/index.html --dist-dir .dev/parcel/dist --cache-dir .dev/parcel/cache --open",
-    "Build": "rimraf dist && rollup -c",
+    "Build": "rimraf dist && rollup -c && rimraf ./undefined",
     "Publish": "rimraf .dev/parcel/dist & rimraf .dev/parcel/cache && npm run Build && yarn publish"
   },
   "author": "Turnova",
