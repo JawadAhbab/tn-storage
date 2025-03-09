@@ -1,6 +1,6 @@
 {
   "name": "tn-storage",
-  "version": "6.2.3",
+  "version": "6.2.4",
   "description": " ",
   "keywords": [],
   "main": "dist/index.js",
@@ -23,7 +23,7 @@
     "tn-arrelm": "^2.0.0",
     "tn-reactive": "^7.3.0",
     "tn-timeout": "^1.0.0",
-    "tn-typescript": "^1.2.3",
+    "tn-typescript": "^2.1.4",
     "tn-validate": "^4.0.0"
   },
   "devDependencies": {
