@@ -47,9 +47,9 @@ export class CreateStorage<T extends object = any> {
       const key = entry[0]
       const store = entry[1] as Stores
       const newpath = [...path, key]
-      const savedval = savedobj && savedobj[key]
-      if (store['$store']) store['$connect'](() => this.save(), newpath, savedval)
-      else this.setupSchema(store as T, savedval, newpath)
+      const storeValue = savedobj && savedobj[key]
+      if (store['$store']) store['$connect'](() => this.save(), newpath, storeValue)
+      else this.setupSchema(store as T, storeValue, newpath)
     })
     this.ready.current = true
     this.save()
@@ -72,9 +72,9 @@ export class CreateStorage<T extends object = any> {
     Object.entries(schema).forEach(entry => {
       const key = entry[0]
       const store = entry[1] as Stores
-      const savedval = savedobj && savedobj[key]
-      if (store['$store']) store.set(savedval, true)
-      else this.execSync(store as T, savedval)
+      const storeValue = savedobj && savedobj[key]
+      if (store['$store']) store.set(storeValue, true)
+      else this.execSync(store as T, storeValue)
     })
   }
 

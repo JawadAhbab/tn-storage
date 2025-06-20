@@ -8,18 +8,10 @@ export class StoreReactive<T = any> extends StoreSuper<T> {
   constructor(defaults: T | (() => T), ques?: Question<T>, options?: StoreOptobj<T>) {
     super(defaults, ques, options)
   }
-
-  public get() {
-    return this.options.getter(this.value.current)
-  }
-
-  public set(value: T, silent = false) {
-    const newval = this.execset(value, silent, value => (this.value.current = value))
-    this.options.onSet(newval)
-    return newval
-  }
-
-  /** @internal */ public getStoreValue() {
+  /** @internal */ public getRawValue() {
     return this.value.current
+  }
+  /** @internal */ public setRawValue(value: T) {
+    this.value.set(value)
   }
 }

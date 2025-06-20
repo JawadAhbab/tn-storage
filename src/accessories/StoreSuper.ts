@@ -6,7 +6,7 @@ import { StoreOptions, StoreOptobj } from './StoreOptions'
 import { StoreSuperSuper } from './StoreSuperSuper'
 import { StoreValidator } from './StoreValidator'
 import { Question, VUnion } from './Typings'
-type Connect<T> = ($onChange: Func, $path: string[], savedval?: T) => void
+type Connect<T> = ($onChange: Func, $path: string[], storeValue?: T) => void
 
 export class StoreSuper<T> extends StoreSuperSuper<T> {
   protected $store = true
@@ -21,15 +21,15 @@ export class StoreSuper<T> extends StoreSuperSuper<T> {
     super()
     this.$default = isFunction(defaults) ? defaults() : defaults
     this.options = new StoreOptions(options)
-    this.validator = new StoreValidator(this, this.options.encrypted ? 'any' : ques)
+    this.validator = new StoreValidator(this, ques)
     if (isArray(ques)) this.union = ques
   }
 
-  protected $connect: Connect<T> = ($onChange, $path, savedval) => {
+  protected $connect: Connect<T> = ($onChange, $path, storeValue) => {
     this.path = $path
     this.$onChange = $onChange
     this.validator.checkDefault(this.$default)
-    const value = savedval !== undefined ? this.options.onStart(savedval) : this.$default
+    const value = this.parseStoreValue(storeValue)
     if (this.validator.validate(value)) this.set(value, true)
     else this.set(this.$default, true)
   }
@@ -55,25 +55,21 @@ export class StoreSuper<T> extends StoreSuperSuper<T> {
     if (!isNumber(value)) return value
     return this.easyset(value + amount)
   }
-
   public decrease(amount = 1) {
     const value = this.get()
     if (!isNumber(value)) return value
     return this.easyset(value - amount)
   }
-
   public push(...elm: (T extends any[] ? T[number] : T)[]) {
     const value = this.get()
     if (!isArray(value)) return value
     return this.easyset([...value, ...elm])
   }
-
   public unshift(...elm: (T extends any[] ? T[number] : T)[]) {
     const value = this.get()
     if (!isArray(value)) return value
     return this.easyset([...elm, ...value])
   }
-
   public shift(howmany = 1) {
     const value = this.get()
     if (!isArray(value)) return value
@@ -81,7 +77,6 @@ export class StoreSuper<T> extends StoreSuperSuper<T> {
     for (let i = 0; i < howmany; i++) newval.shift()
     return this.easyset(newval)
   }
-
   public pop(howmany = 1) {
     const value = this.get()
     if (!isArray(value)) return value
@@ -89,22 +84,35 @@ export class StoreSuper<T> extends StoreSuperSuper<T> {
     for (let i = 0; i < howmany; i++) newval.pop()
     return this.easyset(newval)
   }
-
   public switch() {
     const value = this.get()
     if (!isBoolean(value)) return value
     return this.easyset(!value)
   }
-
   public next() {
     const value = this.get()
     if (!this.union) return value
     return this.easyset(arrNextElm(this.union, value as any))
   }
-
   public prev() {
     const value = this.get()
     if (!this.union) return value
     return this.easyset(arrPrevElm(this.union, value as any))
+  }
+
+  public get() {
+    return this.options.getter(this.getRawValue())
+  }
+  public set(value: T, silent = false) {
+    const newval = this.execset(value, silent, value => this.setRawValue(value))
+    this.options.onSet(newval)
+    return newval
+  }
+
+  /** @internal */ public getStoreValue() {
+    return this.getRawValue()
+  }
+  /** @internal */ public parseStoreValue(storeValue?: T) {
+    return storeValue !== undefined ? this.options.onStart(storeValue) : this.$default
   }
 }
