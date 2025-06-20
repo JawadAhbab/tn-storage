@@ -1,6 +1,12 @@
 .dev/parcel/dist
 .dev/parcel/cache
 
+# Yarn v4 (Berry)
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.pnp.*
+
 # dependencies
 /node_modules
 /.pnp

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "esModuleInterop": true,
     "declaration": true,
     "declarationDir": "./dist",

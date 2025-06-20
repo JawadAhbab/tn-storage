@@ -8,7 +8,7 @@
   "scripts": {
     "Serve": "parcel .dev/parcel/index.html --dist-dir .dev/parcel/dist --cache-dir .dev/parcel/cache --open",
     "Build": "rimraf dist && rollup -c && rimraf ./undefined",
-    "Publish": "npm run Build && yarn publish"
+    "Publish": "npm run Build && yarn npm publish"
   },
   "author": "Turnova",
   "license": "MIT",
@@ -47,5 +47,6 @@
   },
   "peerDependencies": {
     "react": "^18.2.0"
-  }
+  },
+  "packageManager": "yarn@4.9.2"
 }
