@@ -61,7 +61,7 @@ export class CreateStorage<T extends object = any> {
     Object.entries(states).forEach(entry => {
       const key = entry[0]
       const store = entry[1] as Stores
-      if (store['$store']) obj[key] = store.get()
+      if (store['$store']) obj[key] = store.getStoreValue()
       else obj[key] = this.getObject(store)
     })
     return obj

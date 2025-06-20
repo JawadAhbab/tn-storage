@@ -7,7 +7,18 @@ interface Treasure {
 }
 
 const { states } = new CreateStorage(new LocalStorage('myscope'), {
-  a: new Store<Treasure>({ foo: 'bar', bar: 11 }, 'object', { encrypted: true }),
+  abc: new Store<Treasure>(
+    {
+      foo: 'bar',
+      bar: 11,
+    },
+    'object',
+    {
+      encrypted: true,
+      // setter: () => ({ foo: 'YESS', bar: 1000 }),
+      getter: () => ({ foo: 'MINU', bar: 1000 }),
+    }
+  ),
 })
 
 // @ts-ignore

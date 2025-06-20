@@ -17,4 +17,8 @@ export class Store<T = any> extends StoreSuper<T> {
     this.options.onSet(newval)
     return newval
   }
+
+  /** @internal */ public getStoreValue() {
+    return this.value
+  }
 }
