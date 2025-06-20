@@ -12,7 +12,7 @@ const { states } = new CreateStorage(new LocalStorage('myscope'), {
       foo: 'bar',
       bar: 11,
     },
-    'object',
+    () => true,
     {
       encrypt: true,
     }
