@@ -1,12 +1,11 @@
+import deepEqual from 'fast-deep-equal'
 import { arrNextElm, arrPrevElm } from 'tn-arrelm'
 import { Func } from 'tn-typescript'
 import { isArray, isBoolean, isFunction, isNumber } from 'tn-validate'
 import { StoreOptions, StoreOptobj } from './StoreOptions'
 import { StoreSuperSuper } from './StoreSuperSuper'
 import { StoreValidator } from './StoreValidator'
-import deepEqual from 'fast-deep-equal'
-import { VUnion, Question } from './Typings'
-import { csAes } from './StoreAes'
+import { Question, VUnion } from './Typings'
 type Connect<T> = ($onChange: Func, $path: string[], savedval?: T) => void
 
 export class StoreSuper<T> extends StoreSuperSuper<T> {
@@ -39,7 +38,6 @@ export class StoreSuper<T> extends StoreSuperSuper<T> {
   protected execset(value: T, silent = false, setValue: (value: T) => void) {
     const preval = this.get()
     let newval = this.options.setter(value)
-    if (this.options.encrypted) newval = csAes.encrypt(newval, this.options.encrypted.secret)
     if (this.options.deepcheck && deepEqual(preval, newval)) return preval
     if (!this.options.deepcheck && preval === newval) return preval
     if (!this.validator.validate(newval)) return preval
