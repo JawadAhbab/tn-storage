@@ -11,8 +11,8 @@ export class CreateStorage<T extends object = any> {
   constructor(storage: Storages, schema: T) {
     this.storage = storage
     this.states = schema
-    if (!this.storage.async) this.setupSchema(this.states, this.storage.getSavedobj())
-    else this.storage.getSavedobj(saveobj => this.setupSchema(schema, saveobj))
+    if (!this.storage.async) this.setupSchema(this.states, this.storage.getStoreObject())
+    else this.storage.getStoreObject(saveobj => this.setupSchema(schema, saveobj))
   }
 
   private exacSave() {
@@ -41,13 +41,13 @@ export class CreateStorage<T extends object = any> {
   }
 
   public ready = new Reactive(false)
-  private setupSchema(schema: T, savedobj: any, path: string[] = []) {
+  private setupSchema(schema: T, storeObject: any, path: string[] = []) {
     if (!isObject(schema)) return
     Object.entries(schema).forEach(entry => {
       const key = entry[0]
       const store = entry[1] as Stores
       const newpath = [...path, key]
-      const storeValue = savedobj && savedobj[key]
+      const storeValue = storeObject && storeObject[key]
       if (store['$store']) store['$connect'](() => this.save(), newpath, storeValue)
       else this.setupSchema(store as T, storeValue, newpath)
     })
@@ -67,19 +67,19 @@ export class CreateStorage<T extends object = any> {
     return obj
   }
 
-  private execSync(schema: T, savedobj: any) {
+  private execSync(schema: T, storeObject: any) {
     if (!isObject(schema)) return
     Object.entries(schema).forEach(entry => {
       const key = entry[0]
       const store = entry[1] as Stores
-      const storeValue = savedobj && savedobj[key]
+      const storeValue = storeObject && storeObject[key]
       if (store['$store']) store.set(storeValue, true)
       else this.execSync(store as T, storeValue)
     })
   }
 
   public sync() {
-    if (!this.storage.async) this.execSync(this.states, this.storage.getSavedobj())
-    else this.storage.getSavedobj(saveobj => this.execSync(this.states, saveobj))
+    if (!this.storage.async) this.execSync(this.states, this.storage.getStoreObject())
+    else this.storage.getStoreObject(storeObject => this.execSync(this.states, storeObject))
   }
 }

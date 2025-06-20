@@ -11,7 +11,7 @@ export class LocalStorage {
     localStorage.setItem(this.scope, JSON.stringify(object))
   }
 
-  public getSavedobj() {
+  public getStoreObject() {
     const string = localStorage.getItem(this.scope)
     if (!isJson(string)) return {}
     const object = JSON.parse(string)

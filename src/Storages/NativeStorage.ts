@@ -17,7 +17,7 @@ export class NativeStorage {
       .catch(err => console.error(err))
   }
 
-  public getSavedobj(callback?: GetCallback) {
+  public getStoreObject(callback?: GetCallback) {
     if (!callback) return
     AsyncStorage.getItem(this.scope)
       .then(string => {

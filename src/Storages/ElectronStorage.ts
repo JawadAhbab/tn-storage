@@ -13,7 +13,7 @@ export class ElectronStorage {
     store.set(this.scope, object)
   }
 
-  public getSavedobj() {
+  public getStoreObject() {
     const object = store.get(this.scope)
     if (!isObject(object)) return {}
     return object

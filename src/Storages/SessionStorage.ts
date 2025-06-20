@@ -11,7 +11,7 @@ export class SessionStorage {
     sessionStorage.setItem(this.scope, JSON.stringify(object))
   }
 
-  public getSavedobj() {
+  public getStoreObject() {
     const string = sessionStorage.getItem(this.scope)
     if (!isJson(string)) return {}
     const object = JSON.parse(string)
