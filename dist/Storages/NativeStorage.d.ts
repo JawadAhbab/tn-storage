@@ -6,6 +6,6 @@ export declare class NativeStorage {
     async: boolean;
     constructor(scope: string);
     save(object: any, callback?: SetCallback): void;
-    getSavedobj(callback?: GetCallback): void;
+    getStoreObject(callback?: GetCallback): void;
 }
 export {};

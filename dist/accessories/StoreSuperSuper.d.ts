@@ -1,4 +1,4 @@
 export declare class StoreSuperSuper<T> {
-    get(): T;
-    set(value: T, silent?: boolean): T;
+    /** @internal */ setRawValue(_value: T): void;
+    /** @internal */ getRawValue(): T;
 }

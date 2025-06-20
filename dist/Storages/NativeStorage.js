@@ -11,7 +11,7 @@ class NativeStorage {
   save(object, callback) {
     AsyncStorage.setItem(this.scope, JSON.stringify(object)).then(() => callback && callback()).catch(err => console.error(err));
   }
-  getSavedobj(callback) {
+  getStoreObject(callback) {
     if (!callback) return;
     AsyncStorage.getItem(this.scope).then(string => {
       if (!tnValidate.isJson(string)) return callback({});

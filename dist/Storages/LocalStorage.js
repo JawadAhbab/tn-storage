@@ -10,7 +10,7 @@ class LocalStorage {
   save(object) {
     localStorage.setItem(this.scope, JSON.stringify(object));
   }
-  getSavedobj() {
+  getStoreObject() {
     const string = localStorage.getItem(this.scope);
     if (!tnValidate.isJson(string)) return {};
     const object = JSON.parse(string);

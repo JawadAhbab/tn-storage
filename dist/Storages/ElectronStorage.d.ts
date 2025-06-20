@@ -3,5 +3,5 @@ export declare class ElectronStorage {
     async: boolean;
     constructor(scope: string);
     save(object: any): void;
-    getSavedobj(): import("tn-typescript").AnyObject;
+    getStoreObject(): Record<string, unknown>;
 }

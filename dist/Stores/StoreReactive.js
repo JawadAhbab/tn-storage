@@ -1,12 +1,38 @@
 'use strict';
 
 var tnReactive = require('tn-reactive');
+var deepEqual = require('fast-deep-equal');
 var tnArrelm = require('tn-arrelm');
 var tnValidate = require('tn-validate');
-var deepEqual = require('fast-deep-equal');
+var cryptoJs = require('crypto-js');
+class StoreEncrypt {
+  constructor(opts) {
+    this.createShhh(opts === true ? undefined : opts.secret);
+  }
+  shhh;
+  createShhh() {
+    let secret = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'J06AOEC52IMQC1WS5404HW82C60HBT51';
+    this.shhh = secret.padEnd(32).substring(0, 32);
+  }
+  encrypt(data) {
+    const json = JSON.stringify({
+      data
+    });
+    return cryptoJs.AES.encrypt(json, this.shhh).toString();
+  }
+  decrypt(cipher) {
+    try {
+      const jsonstr = cryptoJs.AES.decrypt(cipher, this.shhh).toString(cryptoJs.enc.Utf8);
+      const {
+        data
+      } = JSON.parse(jsonstr);
+      return data;
+    } catch {}
+  }
+}
 class StoreOptions {
   deepcheck;
-  encrypted;
+  encrypt;
   onSet = () => null;
   onStart = v => v;
   getter = v => v;
@@ -14,33 +40,28 @@ class StoreOptions {
   constructor(options) {
     const {
       deepcheck = false,
-      encrypted = false,
+      encrypt,
       onSet,
       onStart,
       getter,
       setter
     } = options;
-    const secret = '::TNSTORAGE::';
     this.deepcheck = deepcheck;
-    this.encrypted = encrypted === true ? {
-      secret
-    } : encrypted;
     if (onSet) this.onSet = onSet;
     if (onStart) this.onStart = onStart;
     if (getter) this.getter = getter;
     if (setter) this.setter = setter;
+    if (encrypt) this.encrypt = new StoreEncrypt(encrypt);
   }
 }
 
 // just a typescript hack
 // it actually referes to Store & StoreReactive Classes
 class StoreSuperSuper {
-  get() {
+  /** @internal */setRawValue(_value) {}
+  /** @internal */
+  getRawValue() {
     return null;
-  }
-  set(value) {
-    let silent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    return silent ? value : value;
   }
 }
 class StoreValidator {
@@ -81,15 +102,15 @@ class StoreSuper extends StoreSuperSuper {
     let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     super();
     this.$default = tnValidate.isFunction(defaults) ? defaults() : defaults;
-    this.validator = new StoreValidator(this, ques);
     this.options = new StoreOptions(options);
+    this.validator = new StoreValidator(this, ques);
     if (tnValidate.isArray(ques)) this.union = ques;
   }
-  $connect = ($onChange, $path, savedval) => {
+  $connect = ($onChange, $path, storeValue) => {
     this.path = $path;
     this.$onChange = $onChange;
     this.validator.checkDefault(this.$default);
-    const value = savedval !== undefined ? this.options.onStart(savedval) : this.$default;
+    const value = this.parseStoreValue(storeValue);
     if (this.validator.validate(value)) this.set(value, true);else this.set(this.$default, true);
   };
   easyset = value => this.set(value);
@@ -97,7 +118,7 @@ class StoreSuper extends StoreSuperSuper {
     let silent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     let setValue = arguments.length > 2 ? arguments[2] : undefined;
     const preval = this.get();
-    const newval = this.options.setter(value);
+    let newval = this.options.setter(value);
     if (this.options.deepcheck && deepEqual(preval, newval)) return preval;
     if (!this.options.deepcheck && preval === newval) return preval;
     if (!this.validator.validate(newval)) return preval;
@@ -167,20 +188,39 @@ class StoreSuper extends StoreSuperSuper {
     if (!this.union) return value;
     return this.easyset(tnArrelm.arrPrevElm(this.union, value));
   }
+  get() {
+    return this.options.getter(this.getRawValue());
+  }
+  set(value) {
+    let silent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    const newval = this.execset(value, silent, value => this.setRawValue(value));
+    this.options.onSet(newval);
+    return newval;
+  }
+  /** @internal */
+  getStoreValue() {
+    const raw = this.getRawValue();
+    return this.options.encrypt?.encrypt(raw) ?? raw;
+  }
+  /** @internal */
+  parseStoreValue(storeValue) {
+    if (storeValue === undefined) return this.$default;
+    if (!this.options.encrypt) return this.options.onStart(storeValue);
+    return this.options.encrypt.decrypt(storeValue) ?? this.$default;
+  }
 }
 class StoreReactive extends StoreSuper {
   value = (() => new tnReactive.Reactive(undefined))();
   constructor(defaults, ques, options) {
     super(defaults, ques, options);
   }
-  get() {
-    return this.options.getter(this.value.current);
+  /** @internal */
+  getRawValue() {
+    return this.value.current;
   }
-  set(value) {
-    let silent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    const newval = this.execset(value, silent, value => this.value.current = value);
-    this.options.onSet(newval);
-    return newval;
+  /** @internal */
+  setRawValue(value) {
+    this.value.set(value);
   }
 }
 exports.StoreReactive = StoreReactive;

@@ -4,6 +4,6 @@ class MemoryStorage {
   async = false;
   $connect() {}
   save() {}
-  getSavedobj = () => ({});
+  getStoreObject = () => ({});
 }
 exports.MemoryStorage = MemoryStorage;

@@ -3,5 +3,5 @@ export declare class SessionStorage {
     async: boolean;
     constructor(scope: string);
     save(object: any): void;
-    getSavedobj(): import("tn-typescript").AnyObject;
+    getStoreObject(): import("tn-typescript").AnyObject;
 }

@@ -10,7 +10,7 @@ class SessionStorage {
   save(object) {
     sessionStorage.setItem(this.scope, JSON.stringify(object));
   }
-  getSavedobj() {
+  getStoreObject() {
     const string = sessionStorage.getItem(this.scope);
     if (!tnValidate.isJson(string)) return {};
     const object = JSON.parse(string);

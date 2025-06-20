@@ -1,30 +1,34 @@
-import { Func } from 'tn-typescript'
-import { StoreOptions, StoreOptobj } from './StoreOptions'
-import { StoreSuperSuper } from './StoreSuperSuper'
-import { StoreValidator } from './StoreValidator'
-import { VUnion, Question } from './Typings'
-type Connect<T> = ($onChange: Func, $path: string[], savedval?: T) => void
+import { Func } from 'tn-typescript';
+import { StoreOptions, StoreOptobj } from './StoreOptions';
+import { StoreSuperSuper } from './StoreSuperSuper';
+import { StoreValidator } from './StoreValidator';
+import { Question, VUnion } from './Typings';
+type Connect<T> = ($onChange: Func, $path: string[], storeValue?: T) => void;
 export declare class StoreSuper<T> extends StoreSuperSuper<T> {
-  protected $store: boolean
-  protected $onChange: Func
-  protected validator: StoreValidator<T>
-  protected $default: T
-  protected union?: VUnion
-  protected options: StoreOptions<T>
-  protected path: string[]
-  constructor(defaults: T | (() => T), ques?: Question<T>, options?: StoreOptobj<T>)
-  protected $connect: Connect<T>
-  protected easyset: (value: any) => T
-  protected execset(value: T, silent: boolean | undefined, setValue: (value: T) => void): any
-  reset(): T
-  increase(amount?: number): T
-  decrease(amount?: number): T
-  push(...elm: (T extends any[] ? T[number] : T)[]): T
-  unshift(...elm: (T extends any[] ? T[number] : T)[]): T
-  shift(howmany?: number): T
-  pop(howmany?: number): T
-  switch(): T
-  next(): T
-  prev(): T
+    protected $store: boolean;
+    protected $onChange: Func;
+    protected validator: StoreValidator<T>;
+    protected $default: T;
+    protected union?: VUnion;
+    protected options: StoreOptions<T>;
+    protected path: string[];
+    constructor(defaults: T | (() => T), ques?: Question<T>, options?: StoreOptobj<T>);
+    protected $connect: Connect<T>;
+    protected easyset: (value: any) => any;
+    protected execset(value: T, silent: boolean | undefined, setValue: (value: T) => void): any;
+    reset(): any;
+    increase(amount?: number): any;
+    decrease(amount?: number): any;
+    push(...elm: (T extends any[] ? T[number] : T)[]): any;
+    unshift(...elm: (T extends any[] ? T[number] : T)[]): any;
+    shift(howmany?: number): any;
+    pop(howmany?: number): any;
+    switch(): any;
+    next(): any;
+    prev(): any;
+    get(): T;
+    set(value: T, silent?: boolean): any;
+    /** @internal */ getStoreValue(): string | T;
+    /** @internal */ parseStoreValue(storeValue?: T): any;
 }
-export {}
+export {};

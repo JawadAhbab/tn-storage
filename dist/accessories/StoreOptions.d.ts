@@ -1,14 +1,10 @@
+import { StoreEncrypt, StoreEncryptOpts } from './StoreEncrypt';
 type OnStart<T> = (value: T) => T;
 type Getter<T> = (value: any) => T;
 type Setter<T> = (value: T) => any;
-type EncryptOpt = false | {
-    secret: string;
-};
 export interface StoreOptobj<T> {
     deepcheck?: boolean;
-    encrypted?: boolean | {
-        secret: string;
-    };
+    encrypt?: StoreEncryptOpts | false;
     onSet?: (value: T) => void;
     onStart?: OnStart<T>;
     getter?: Getter<T>;
@@ -16,7 +12,7 @@ export interface StoreOptobj<T> {
 }
 export declare class StoreOptions<T> {
     deepcheck: boolean;
-    encrypted: EncryptOpt;
+    encrypt?: StoreEncrypt;
     onSet: (value: T) => void;
     onStart: OnStart<T>;
     getter: Getter<T>;

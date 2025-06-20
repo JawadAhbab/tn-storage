@@ -12,7 +12,7 @@ class ElectronStorage {
   save(object) {
     store.set(this.scope, object);
   }
-  getSavedobj() {
+  getStoreObject() {
     const object = store.get(this.scope);
     if (!tnValidate.isObject(object)) return {};
     return object;
