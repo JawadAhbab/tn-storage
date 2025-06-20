@@ -5,6 +5,7 @@ var tnValidate = require('tn-validate');
 var deepEqual = require('fast-deep-equal');
 class StoreOptions {
   deepcheck;
+  encrypted;
   onSet = () => null;
   onStart = v => v;
   getter = v => v;
@@ -12,12 +13,17 @@ class StoreOptions {
   constructor(options) {
     const {
       deepcheck = false,
+      encrypted = false,
       onSet,
       onStart,
       getter,
       setter
     } = options;
+    const secret = '::TNSTORAGE::';
     this.deepcheck = deepcheck;
+    this.encrypted = encrypted === true ? {
+      secret
+    } : encrypted;
     if (onSet) this.onSet = onSet;
     if (onStart) this.onStart = onStart;
     if (getter) this.getter = getter;
