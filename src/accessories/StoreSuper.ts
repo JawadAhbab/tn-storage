@@ -20,8 +20,8 @@ export class StoreSuper<T> extends StoreSuperSuper<T> {
   constructor(defaults: T | (() => T), ques?: Question<T>, options: StoreOptobj<T> = {}) {
     super()
     this.$default = isFunction(defaults) ? defaults() : defaults
-    this.validator = new StoreValidator(this, ques)
     this.options = new StoreOptions(options)
+    this.validator = new StoreValidator(this, this.options.encrypted ? 'string' : ques)
     if (isArray(ques)) this.union = ques
   }
 
