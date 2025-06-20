@@ -1,16 +1,13 @@
 'use strict';
 
-var _defineProperty = require("@babel/runtime/helpers/defineProperty");
 var tnReactive = require('tn-reactive');
 var tnTimeout = require('tn-timeout');
 var tnValidate = require('tn-validate');
 class CreateStorage {
+  timeout = (() => new tnTimeout.Timeout(100))();
+  storage;
+  states;
   constructor(storage, schema) {
-    _defineProperty(this, "timeout", new tnTimeout.Timeout(100));
-    _defineProperty(this, "storage", void 0);
-    _defineProperty(this, "states", void 0);
-    _defineProperty(this, "afterSave", () => null);
-    _defineProperty(this, "ready", new tnReactive.Reactive(false));
     this.storage = storage;
     this.states = schema;
     if (!this.storage.async) this.setupSchema(this.states, this.storage.getSavedobj());else this.storage.getSavedobj(saveobj => this.setupSchema(schema, saveobj));
@@ -30,10 +27,12 @@ class CreateStorage {
     this.timeout = tnValidate.isNumber(ms) ? new tnTimeout.Timeout(ms) : null;
     return this;
   }
+  afterSave = () => null;
   setAfterSave(func) {
     this.afterSave = func;
     return this;
   }
+  ready = (() => new tnReactive.Reactive(false))();
   setupSchema(schema, savedobj) {
     let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
     if (!tnValidate.isObject(schema)) return;

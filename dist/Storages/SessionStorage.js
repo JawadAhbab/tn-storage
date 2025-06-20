@@ -1,12 +1,11 @@
 'use strict';
 
-var _defineProperty = require("@babel/runtime/helpers/defineProperty");
 var tnValidate = require('tn-validate');
 class SessionStorage {
+  scope;
+  async = false;
   constructor(scope) {
-    _defineProperty(this, "scope", void 0);
-    _defineProperty(this, "async", false);
-    this.scope = "@storage.".concat(scope);
+    this.scope = `@storage.${scope}`;
   }
   save(object) {
     sessionStorage.setItem(this.scope, JSON.stringify(object));

@@ -1,12 +1,9 @@
 'use strict';
 
-var _defineProperty = require("@babel/runtime/helpers/defineProperty");
 class MemoryStorage {
-  constructor() {
-    _defineProperty(this, "async", false);
-    _defineProperty(this, "getSavedobj", () => ({}));
-  }
+  async = false;
   $connect() {}
   save() {}
+  getSavedobj = () => ({});
 }
 exports.MemoryStorage = MemoryStorage;

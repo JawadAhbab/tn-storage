@@ -6,14 +6,15 @@ const pkg = require('./package.json')
 const external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})]
 const tsplug = function (declaration = false) {
   return typescript({
+    check: false,
     useTsconfigDeclarationDir: declaration,
-    tsconfigOverride: { compilerOptions: { declaration } },
+    tsconfigOverride: { compilerOptions: { declaration, module: 'esnext' } },
   })
 }
 const babelplug = function (runtime = true, esm = true) {
   return getBabelOutputPlugin({
     presets: ['@babel/preset-env'],
-    plugins: runtime ? [['@babel/plugin-transform-runtime', { useESModules: esm, version: '7.10.5' }]] : [],
+    plugins: runtime ? [['@babel/plugin-transform-runtime', { useESModules: esm, version: '7.27.4' }]] : [],
   })
 }
 

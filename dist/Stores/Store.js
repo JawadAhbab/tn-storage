@@ -1,16 +1,15 @@
 'use strict';
 
-var _defineProperty = require("@babel/runtime/helpers/defineProperty");
 var tnArrelm = require('tn-arrelm');
 var tnValidate = require('tn-validate');
 var deepEqual = require('fast-deep-equal');
 class StoreOptions {
+  deepcheck;
+  onSet = () => null;
+  onStart = v => v;
+  getter = v => v;
+  setter = v => v;
   constructor(options) {
-    _defineProperty(this, "deepcheck", void 0);
-    _defineProperty(this, "onSet", () => null);
-    _defineProperty(this, "onStart", v => v);
-    _defineProperty(this, "getter", v => v);
-    _defineProperty(this, "setter", v => v);
     const {
       deepcheck = false,
       onSet,
@@ -38,10 +37,10 @@ class StoreSuperSuper {
   }
 }
 class StoreValidator {
+  validator;
+  storesuper;
+  question;
   constructor(storesuper, q) {
-    _defineProperty(this, "validator", void 0);
-    _defineProperty(this, "storesuper", void 0);
-    _defineProperty(this, "question", void 0);
     this.storesuper = storesuper;
     this.question = q;
     if (!q) this.validator = () => true;else if (tnValidate.isFunction(q)) this.validator = q;else if (q === 'any') this.validator = () => true;else if (q === 'string') this.validator = tnValidate.isString;else if (q === 'number') this.validator = tnValidate.isNumber;else if (q === 'boolean') this.validator = tnValidate.isBoolean;else if (q === 'array') this.validator = tnValidate.isArray;else if (q === 'object') this.validator = tnValidate.isObject;else if (q === 'string[]') this.validator = v => tnValidate.isArray(v) && !v.map(tnValidate.isString).includes(false);else if (q === 'number[]') this.validator = v => tnValidate.isArray(v) && !v.map(tnValidate.isNumber).includes(false);else if (q === 'boolean[]') this.validator = v => tnValidate.isArray(v) && !v.map(tnValidate.isBoolean).includes(false);else this.validator = v => q.includes(v);
@@ -60,33 +59,33 @@ class StoreValidator {
     const def = defaults ? 'Default ' : '';
     const pathstr = this.storesuper['path'].join('.');
     const val = (defaults ? 'Default   : ' : 'Value     : ') + value;
-    return "".concat(lb, "@storage  : ").concat(def, "Validation Error\nPath      : @storage.").concat(pathstr, "\n").concat(val, "\nQuestion  : ").concat(this.question, "\nValidator : ").concat(this.validator, "\n");
+    return `${lb}@storage  : ${def}Validation Error\nPath      : @storage.${pathstr}\n${val}\nQuestion  : ${this.question}\nValidator : ${this.validator}\n`;
   }
 }
 class StoreSuper extends StoreSuperSuper {
+  $store = true;
+  $onChange;
+  validator;
+  $default;
+  union;
+  options;
+  path;
   constructor(defaults, ques) {
     let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     super();
-    _defineProperty(this, "$store", true);
-    _defineProperty(this, "$onChange", void 0);
-    _defineProperty(this, "validator", void 0);
-    _defineProperty(this, "$default", void 0);
-    _defineProperty(this, "union", void 0);
-    _defineProperty(this, "options", void 0);
-    _defineProperty(this, "path", void 0);
-    _defineProperty(this, "$connect", ($onChange, $path, savedval) => {
-      this.path = $path;
-      this.$onChange = $onChange;
-      this.validator.checkDefault(this.$default);
-      const value = savedval !== undefined ? this.options.onStart(savedval) : this.$default;
-      if (this.validator.validate(value)) this.set(value, true);else this.set(this.$default, true);
-    });
-    _defineProperty(this, "easyset", value => this.set(value));
     this.$default = tnValidate.isFunction(defaults) ? defaults() : defaults;
     this.validator = new StoreValidator(this, ques);
     this.options = new StoreOptions(options);
     if (tnValidate.isArray(ques)) this.union = ques;
   }
+  $connect = ($onChange, $path, savedval) => {
+    this.path = $path;
+    this.$onChange = $onChange;
+    this.validator.checkDefault(this.$default);
+    const value = savedval !== undefined ? this.options.onStart(savedval) : this.$default;
+    if (this.validator.validate(value)) this.set(value, true);else this.set(this.$default, true);
+  };
+  easyset = value => this.set(value);
   execset(value) {
     let silent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     let setValue = arguments.length > 2 ? arguments[2] : undefined;
@@ -163,9 +162,9 @@ class StoreSuper extends StoreSuperSuper {
   }
 }
 class Store extends StoreSuper {
+  value;
   constructor(defaults, ques, options) {
     super(defaults, ques, options);
-    _defineProperty(this, "value", void 0);
   }
   get() {
     return this.options.getter(this.value);
