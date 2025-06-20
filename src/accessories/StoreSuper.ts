@@ -110,9 +110,12 @@ export class StoreSuper<T> extends StoreSuperSuper<T> {
   }
 
   /** @internal */ public getStoreValue() {
-    return this.getRawValue()
+    const raw = this.getRawValue()
+    return this.options.encrypt?.encrypt(raw) ?? raw
   }
   /** @internal */ public parseStoreValue(storeValue?: T) {
-    return storeValue !== undefined ? this.options.onStart(storeValue) : this.$default
+    if (storeValue === undefined) return this.$default
+    if (!this.options.encrypt) return this.options.onStart(storeValue)
+    return this.options.encrypt.decrypt(storeValue) ?? this.$default
   }
 }
