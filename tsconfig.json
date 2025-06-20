@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
+    "module": "commonjs",
+    "esModuleInterop": true,
     "declaration": true,
     "declarationDir": "./dist",
     "strict": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },

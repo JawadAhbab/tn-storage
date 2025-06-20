@@ -1,6 +1,6 @@
 import { CreateStorage } from '../src/index'
-import { LocalStorage } from '../src/Storage/LocalStorage'
-import { Store } from '../src/Store/Store'
+import { LocalStorage } from '../src/Storages/LocalStorage'
+import { Store } from '../src/Stores/Store'
 
 const { states } = new CreateStorage(new LocalStorage('myscope'), {
   width: new Store(600, 'number'),
