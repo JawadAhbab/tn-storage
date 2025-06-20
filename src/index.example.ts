@@ -7,11 +7,7 @@ interface Treasure {
 }
 
 const { states } = new CreateStorage(new LocalStorage('myscope'), {
-  treasure: new Store<number>(245, 'any', {
-    onSet: v => {
-      return 111
-    },
-  }),
+  treasure: new Store<Treasure>({ foo: 'bar', bar: 11 }, 'object', { encrypted: true }),
 })
 
 // @ts-ignore

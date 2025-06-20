@@ -21,7 +21,7 @@ export class StoreOptions<T> {
 
   constructor(options: StoreOptobj<T>) {
     const { deepcheck = false, encrypted = false, onSet, onStart, getter, setter } = options
-    const secret = '::TNSTORAGE::'
+    const secret = 'J06AOEC52IMQC1WS5404HW82C60HBT51'
     this.deepcheck = deepcheck
     this.encrypted = encrypted === true ? { secret } : encrypted
     if (onSet) this.onSet = onSet

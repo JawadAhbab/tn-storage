@@ -6,6 +6,7 @@ import { StoreSuperSuper } from './StoreSuperSuper'
 import { StoreValidator } from './StoreValidator'
 import deepEqual from 'fast-deep-equal'
 import { VUnion, Question } from './Typings'
+import { csAes } from './StoreAes'
 type Connect<T> = ($onChange: Func, $path: string[], savedval?: T) => void
 
 export class StoreSuper<T> extends StoreSuperSuper<T> {
@@ -21,7 +22,7 @@ export class StoreSuper<T> extends StoreSuperSuper<T> {
     super()
     this.$default = isFunction(defaults) ? defaults() : defaults
     this.options = new StoreOptions(options)
-    this.validator = new StoreValidator(this, this.options.encrypted ? 'string' : ques)
+    this.validator = new StoreValidator(this, this.options.encrypted ? 'any' : ques)
     if (isArray(ques)) this.union = ques
   }
 
@@ -37,7 +38,8 @@ export class StoreSuper<T> extends StoreSuperSuper<T> {
   protected easyset = (value: any) => this.set(value)
   protected execset(value: T, silent = false, setValue: (value: T) => void) {
     const preval = this.get()
-    const newval = this.options.setter(value)
+    let newval = this.options.setter(value)
+    if (this.options.encrypted) newval = csAes.encrypt(newval, this.options.encrypted.secret)
     if (this.options.deepcheck && deepEqual(preval, newval)) return preval
     if (!this.options.deepcheck && preval === newval) return preval
     if (!this.validator.validate(newval)) return preval
