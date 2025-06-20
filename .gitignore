@@ -1,5 +1,6 @@
 .dev/parcel/dist
 .dev/parcel/cache
+.parcel-cache
 
 # Yarn v4 (Berry)
 .yarn/cache/
