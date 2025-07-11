@@ -7,7 +7,7 @@ export class StoreEncrypt {
   }
 
   private shhh!: string
-  private createShhh(secret: string = 'J06AOEC52IMQC1WS5404HW82C60HBT51') {
+  private createShhh(secret = 'J06AOEC52IMQC1WS5404HW82C60HBT51') {
     this.shhh = secret.padEnd(32).substring(0, 32)
   }
 
