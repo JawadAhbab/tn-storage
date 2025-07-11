@@ -11,7 +11,7 @@ class StoreEncrypt {
   shhh;
   createShhh() {
     let secret = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'J06AOEC52IMQC1WS5404HW82C60HBT51';
-    this.shhh = secret.padEnd(32).substring(0, 32);
+    this.shhh = secret.padEnd(32, '0').substring(0, 32);
   }
   encrypt(data) {
     const json = JSON.stringify({
