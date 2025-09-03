@@ -5,7 +5,6 @@ var tnValidate = require('tn-validate');
 const store = new Store();
 class ElectronStorage {
   scope;
-  async = false;
   constructor(scope) {
     this.scope = `@storage.${scope}`;
   }

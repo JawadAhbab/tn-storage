@@ -1,27 +1,22 @@
 'use strict';
 
+var reactNativeMmkv = require('react-native-mmkv');
 var tnValidate = require('tn-validate');
-var AsyncStorage = require('@react-native-async-storage/async-storage');
+const storage = new reactNativeMmkv.MMKV();
 class NativeStorage {
   scope;
-  async = true;
   constructor(scope) {
     this.scope = `@storage.${scope}`;
   }
-  save(object, callback) {
-    AsyncStorage.setItem(this.scope, JSON.stringify(object)).then(() => callback && callback()).catch(err => console.error(err));
+  save(object) {
+    storage.set(this.scope, JSON.stringify(object));
   }
-  getStoreObject(callback) {
-    if (!callback) return;
-    AsyncStorage.getItem(this.scope).then(string => {
-      if (!tnValidate.isJson(string)) return callback({});
-      const object = JSON.parse(string);
-      if (!tnValidate.isObject(object)) return callback({});
-      callback(object);
-    }).catch(err => {
-      console.error(err);
-      callback({});
-    });
+  getStoreObject() {
+    const string = storage.getString(this.scope);
+    if (!tnValidate.isJson(string)) return {};
+    const object = JSON.parse(string);
+    if (!tnValidate.isObject(object)) return {};
+    return object;
   }
 }
 exports.NativeStorage = NativeStorage;

@@ -3,7 +3,6 @@
 var tnValidate = require('tn-validate');
 class LocalStorage {
   scope;
-  async = false;
   constructor(scope) {
     this.scope = `@storage.${scope}`;
   }
