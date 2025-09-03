@@ -14,7 +14,7 @@ const tsplug = function (declaration = false) {
 const babelplug = function (runtime = true, esm = true) {
   return getBabelOutputPlugin({
     presets: ['@babel/preset-env'],
-    plugins: runtime ? [['@babel/plugin-transform-runtime', { useESModules: esm, version: '7.27.4' }]] : [],
+    plugins: runtime ? [['@babel/plugin-transform-runtime', { useESModules: esm, version: '7.28.3' }]] : [],
   })
 }
 
