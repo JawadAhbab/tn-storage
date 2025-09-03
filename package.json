@@ -21,7 +21,7 @@
     "crypto-js": "^4.2.0",
     "electron-store": "^10.1.0",
     "fast-deep-equal": "^3.1.3",
-    "react-native-mmkv": "^3.3.0",
+    "react-native-mmkv": "^2.12.2",
     "tn-arrelm": "^2.0.0",
     "tn-reactive": "^7.3.0",
     "tn-timeout": "^1.0.0",
