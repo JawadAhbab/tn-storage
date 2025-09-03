@@ -11,17 +11,13 @@ export class CreateStorage<T extends object = any> {
   constructor(storage: Storages, schema: T) {
     this.storage = storage
     this.states = schema
-    if (!this.storage.async) this.setupSchema(this.states, this.storage.getStoreObject())
-    else this.storage.getStoreObject(saveobj => this.setupSchema(schema, saveobj))
+    this.setupSchema(this.states, this.storage.getStoreObject())
   }
 
   private exacSave() {
     const object = this.getObject(this.states)
-    if (this.storage.async) this.storage.save(object, () => this.afterSave())
-    else {
-      this.storage.save(object)
-      this.afterSave()
-    }
+    this.storage.save(object)
+    this.afterSave()
   }
 
   private save() {
@@ -79,7 +75,6 @@ export class CreateStorage<T extends object = any> {
   }
 
   public sync() {
-    if (!this.storage.async) this.execSync(this.states, this.storage.getStoreObject())
-    else this.storage.getStoreObject(storeObject => this.execSync(this.states, storeObject))
+    this.execSync(this.states, this.storage.getStoreObject())
   }
 }

@@ -2,7 +2,6 @@ import { isJson, isObject } from 'tn-validate'
 
 export class LocalStorage {
   private scope: string
-  public async = false
   constructor(scope: string) {
     this.scope = `@storage.${scope}`
   }

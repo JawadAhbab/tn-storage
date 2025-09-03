@@ -4,7 +4,6 @@ const store = new Store()
 
 export class ElectronStorage {
   private scope: string
-  public async = false
   constructor(scope: string) {
     this.scope = `@storage.${scope}`
   }
