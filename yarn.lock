@@ -3170,6 +3170,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-mmkv@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "react-native-mmkv@npm:3.3.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/828af03d2301ec4d7118dde2b765cbbd75bf6edbbc6613b5c0d93c18d79f471df8b3c2c8cb7df5ef2794bd06485e5ce3b97164d50175445b8cf30109f29c4718
+  languageName: node
+  linkType: hard
+
 "react@npm:^19.1.1":
   version: 19.1.1
   resolution: "react@npm:19.1.1"
@@ -3732,6 +3742,7 @@ __metadata:
     fast-deep-equal: "npm:^3.1.3"
     process: "npm:^0.11.10"
     react: "npm:^19.1.1"
+    react-native-mmkv: "npm:^3.3.1"
     rollup: "npm:^4.50.0"
     rollup-plugin-typescript2: "npm:^0.36.0"
     tn-arrelm: "npm:^2.0.0"
