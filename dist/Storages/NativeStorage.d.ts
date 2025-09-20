@@ -3,4 +3,5 @@ export declare class NativeStorage {
     constructor(scope: string);
     save(object: any): void;
     getStoreObject(): import("tn-typescript").AnyObject;
+    clearStorage(): void;
 }

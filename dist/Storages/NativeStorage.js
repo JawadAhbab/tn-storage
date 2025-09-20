@@ -18,5 +18,8 @@ class NativeStorage {
     if (!tnValidate.isObject(object)) return {};
     return object;
   }
+  clearStorage() {
+    storage.delete(this.scope);
+  }
 }
 exports.NativeStorage = NativeStorage;
