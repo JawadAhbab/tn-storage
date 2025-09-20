@@ -19,4 +19,8 @@ export class NativeStorage {
     if (!isObject(object)) return {}
     return object
   }
+
+  public clearStorage() {
+    storage.delete(this.scope)
+  }
 }
